@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student List</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eaf2f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background-color: #007bff;
+            padding: 15px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .navbar ul li {
+            margin: 0 15px;
+        }
+
+        .navbar ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .navbar ul li a:hover {
+            background-color: #0056b3;
+        }
+
+        .wrapper{
+            margin: 0 25px;
+        }
+
+        .container {
+            padding: 20px;
+            margin: 50px auto;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 18px;
+            text-align: left;
+        }
+
+        table th, table td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        table tr:hover {
+            background-color: #ddd;
+        }
+
+        .actions a {
+            text-decoration: none;
+            color: #007bff;
+            margin-right: 10px;
+        }
+
+        .actions a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <ul>
+            <li><a href="/students/home" th:href="@{/students/home}">Home</a></li>
+            <li><a href="/students/add" th:href="@{/students/add}">Add</a></li>
+            <li><a href="/students" th:href="@{/students}">List</a></li>
+        </ul>
+    </nav>
+
+    <div class="wrapper">
+    <div class="container">
+        <h1>Student List</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Student Name</th>
+                    <th>Student DOB</th>
+                    <th>Student Mail ID</th>
+                    <th>Student Address</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="student : ${students}">
+                    <td th:text="${student.studentId}"></td>
+                    <td th:text="${student.studentName}"></td>
+                    <td th:text="${student.studentDob}"></td>
+                    <td th:text="${student.studentEmail}"></td>
+                    <td th:text="${student.studentAddress}"></td>
+                    <td class="actions">
+                        <a th:href="@{/students/update/{id}(id=${student.studentId})}">Update</a>
+                        <a th:href="@{/students/delete/{id}(id=${student.studentId})}" onclick="return confirm('Are you sure?')">Delete</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
